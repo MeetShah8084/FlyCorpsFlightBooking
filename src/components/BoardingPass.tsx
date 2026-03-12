@@ -1,3 +1,15 @@
+import { 
+  Plane, 
+  User, 
+  Hash, 
+  MapPin, 
+  Calendar, 
+  Clock, 
+  Armchair, 
+  Luggage, 
+  Utensils, 
+  Coffee 
+} from 'lucide-react';
 
 const BoardingPass = () => {
   return (
@@ -20,7 +32,7 @@ const BoardingPass = () => {
                 <span className="text-3xl font-black tracking-tighter text-brand">RETRO SKIES</span>
               </div>
               <div className="text-right">
-                <span className="text-xs font-bold text-vintage-muted dark:text-white/50 block">CLASS</span>
+                <span className="text-xs font-bold text-vintage-muted dark:text-white/50 block uppercase">Class</span>
                 <span className="text-lg font-bold">FIRST CLASS</span>
               </div>
             </div>
@@ -33,7 +45,7 @@ const BoardingPass = () => {
               </div>
               <div className="flex-1 flex items-center justify-center px-6 relative">
                 <div className="w-full h-[2px] bg-vintage-muted/30 dark:bg-white/20"></div>
-                <span className="material-symbols-outlined absolute text-brand bg-vintage-cream dark:bg-background-dark px-2">flight</span>
+                <Plane className="absolute text-brand bg-vintage-cream dark:bg-background-dark px-2 w-10 h-10 rotate-90" />
               </div>
               <div className="text-center">
                 <h3 className="text-5xl font-black tracking-tighter">LHR</h3>
@@ -42,36 +54,57 @@ const BoardingPass = () => {
             </div>
 
             {/* Details Grid */}
-            <div className="grid grid-cols-3 gap-y-8 gap-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4">
               <div>
-                <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Passenger Name</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <User className="w-3 h-3 text-brand" />
+                  <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Passenger Name</p>
+                </div>
                 <p className="text-lg font-bold">John Doe</p>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Flight No.</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <Hash className="w-3 h-3 text-brand" />
+                  <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Flight No.</p>
+                </div>
                 <p className="text-lg font-bold">RS-1962</p>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Gate</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <MapPin className="w-3 h-3 text-brand" />
+                  <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Gate</p>
+                </div>
                 <p className="text-lg font-bold">B12</p>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Date</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <Calendar className="w-3 h-3 text-brand" />
+                  <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Date</p>
+                </div>
                 <p className="text-lg font-bold">OCT 14, 1962</p>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Boarding Time</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <Clock className="w-3 h-3 text-brand" />
+                  <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Boarding Time</p>
+                </div>
                 <p className="text-lg font-bold">08:15 AM</p>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Seat</p>
-                <p className="text-lg font-bold">14A</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <Armchair className="w-3 h-3 text-brand" />
+                  <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Seat</p>
+                </div>
+                <p className="text-lg font-bold text-brand">14A</p>
               </div>
             </div>
 
             {/* Circular Cutouts for tear-off effect */}
-            <div className="absolute -right-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-2">
-              <div className="w-8 h-8 rounded-full bg-white dark:bg-background-dark"></div>
+            <div className="absolute -right-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-2 z-10">
+              <div className="w-8 h-8 rounded-full bg-white dark:bg-background-dark -mr-4"></div>
+            </div>
+            <div className="absolute -left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-2 z-10">
+              <div className="w-8 h-8 rounded-full bg-white dark:bg-background-dark -ml-4"></div>
             </div>
           </div>
 
@@ -134,26 +167,26 @@ const BoardingPass = () => {
 
         {/* Additional Information */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white dark:bg-white/5 p-6 rounded-custom border border-vintage-muted/20 dark:border-white/10 shadow-sm">
-            <span className="material-symbols-outlined text-brand mb-3">luggage</span>
+          <div className="bg-white dark:bg-white/5 p-6 rounded-custom border border-vintage-muted/20 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow">
+            <Luggage className="text-brand mb-3 w-8 h-8" />
             <h4 className="font-bold text-vintage-navy dark:text-white">Baggage Policy</h4>
             <p className="text-sm text-vintage-muted dark:text-white/60 mt-2">Two pieces of checked luggage and one carry-on are included in your First Class ticket.</p>
           </div>
-          <div className="bg-white dark:bg-white/5 p-6 rounded-custom border border-vintage-muted/20 dark:border-white/10 shadow-sm">
-            <span className="material-symbols-outlined text-brand mb-3">restaurant</span>
+          <div className="bg-white dark:bg-white/5 p-6 rounded-custom border border-vintage-muted/20 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow">
+            <Utensils className="text-brand mb-3 w-8 h-8" />
             <h4 className="font-bold text-vintage-navy dark:text-white">In-flight Dining</h4>
             <p className="text-sm text-vintage-muted dark:text-white/60 mt-2">Gourmet 5-course meal with champagne service starts 1 hour after takeoff.</p>
           </div>
-          <div className="bg-white dark:bg-white/5 p-6 rounded-custom border border-vintage-muted/20 dark:border-white/10 shadow-sm">
-            <span className="material-symbols-outlined text-brand mb-3">meeting_room</span>
+          <div className="bg-white dark:bg-white/5 p-6 rounded-custom border border-vintage-muted/20 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow">
+            <Coffee className="text-brand mb-3 w-8 h-8" />
             <h4 className="font-bold text-vintage-navy dark:text-white">Lounge Access</h4>
             <p className="text-sm text-vintage-muted dark:text-white/60 mt-2">Enjoy complimentary access to the Retro Skies Wing Lounge at JFK Terminal 4.</p>
           </div>
         </div>
 
         {/* Destination Map Preview */}
-        <div className="mt-8 rounded-custom overflow-hidden h-64 relative">
-          <img className="w-full h-full object-cover" alt="London LHR destination" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj-a2V6EiWAWbdnRMdTxmTrZLhX5tvihKjrmfp-1DsGLgf3vRBXqp3hwRKXzyUP0BsI0oCaaTlm40mcPgc6ZUSUN8MGG7HCEZlZ0X2jDJRE_H_sBD1n9Pj3LVZomGqKXmf63f5H9x2CZEBqDHvCjJh0lUmbw_IVYIO15373wfUigj6cex2n0Lo9ERTBLSjLIO0zPforsSQ1cj_O5a5h7XLoBuNfg88CtSDNMWLahgMKtIJo4BPhFqX9CnvFXBKOXotiaez2ZJg_WU" />
+        <div className="mt-8 rounded-custom overflow-hidden h-64 relative group">
+          <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="London LHR destination" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
             <div>
               <p className="text-brand font-bold text-sm tracking-widest uppercase">Your Destination</p>
