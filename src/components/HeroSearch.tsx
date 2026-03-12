@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-const HeroSearch = () => {
+interface HeroSearchProps {
+  onSearch: () => void;
+}
+
+const HeroSearch: React.FC<HeroSearchProps> = ({ onSearch }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   return (
@@ -22,7 +26,10 @@ const HeroSearch = () => {
             <input className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" type="date" />
           </div>
           <div className="flex gap-2">
-            <button className="flex-grow bg-brand text-white font-bold py-3 px-6 rounded-custom hover:opacity-90 transition-all uppercase">
+            <button 
+              onClick={onSearch}
+              className="flex-grow bg-brand text-white font-bold py-3 px-6 rounded-custom hover:opacity-90 transition-all uppercase"
+            >
               Find Flights
             </button>
             
