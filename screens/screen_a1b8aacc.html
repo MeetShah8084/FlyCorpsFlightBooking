@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Retro Skies - Flight Schedules</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Public Sans", sans-serif
+        }
+        .retro-grain {
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuD2CnQmL2rmdH3EZ-jCok4JubhSPu25MnsyJ6XUUXr9zptfDWASt2aJuxrpVxTWdkR3TLok48kB3lyasinWj_i5py7O7d5pWXFuWkRjwzBO8KGkc7e4vBrx_NtZGIoOc0s6GguOQgPC1r4lCbZrwERfcX4ljxoZLrqgpiJ5s4R0zudspLxyODoOSSeTMbntxZkotWiJkvf-qwYahVtOHpywwyIs5au2fivs5CD6-Lz6hmjgPV5pgSNBOlOOYQ0JG8zcdO7XPv54Co8)
+        }
+        .timetable-border {
+            border: 2px solid #221610
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl">flight_takeoff</span>
+<h2 class="text-xl font-black leading-tight tracking-tighter uppercase">Retro Skies</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-bold uppercase tracking-wider" href="#">Home</a>
+<a class="text-primary text-sm font-bold uppercase tracking-wider" href="#">Book</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-bold uppercase tracking-wider" href="#">My Trips</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-bold uppercase tracking-wider" href="#">Profile</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Flight or City..." type="text"/>
+</div>
+<button class="p-2 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full border-2 border-primary overflow-hidden">
+<img alt="Profile" data-alt="Portrait of a smiling male passenger" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByJiGf1XJWRMV-1M0kPX1u1VY1COh8mONZuPNFAkaH_OUA9ZxlIpU_KJV6-gW50s55AB6YxkbSm_awysKHit-zniMnOjzx5B7kDnxgPghnSUp4Y2bawdkydhkwt0TOX4q4zUswYHZPKD1U5gauI9S_y-rq5JmYBOwB4dM8VtRzi0B7RPieuwyaW2suOSzdfjU9TF1FbgPn5JMVRqEbX59xMqpF_5rbe8ZmoHV6YBvezEQXE7WjqAr5gpKT2bD3twXLKIdV6ZzRL0Y"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<!-- Hero Section -->
+<div class="mb-8 border-b-4 border-primary pb-6">
+<div class="flex flex-col md:flex-row justify-between items-end gap-4">
+<div>
+<span class="text-primary font-bold uppercase tracking-[0.3em] text-sm">Official Worldwide Service</span>
+<h1 class="text-5xl md:text-7xl font-black uppercase text-slate-900 dark:text-slate-100 leading-none mt-2">Flight Timetable</h1>
+<p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl text-lg italic">The Golden Age of Jet Travel. Weekly updated routes and schedules for the modern traveler.</p>
+</div>
+<div class="bg-primary text-white p-4 rounded-lg hidden lg:block rotate-2 shadow-lg">
+<p class="text-xs font-bold uppercase text-center border-b border-white/30 pb-1 mb-1">Effective Date</p>
+<p class="text-2xl font-black">OCT 1964</p>
+</div>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-8">
+<div class="lg:col-span-2">
+<label class="block text-xs font-black uppercase tracking-widest mb-1 text-slate-500">Quick Search</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary">search</span>
+<input class="w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:border-primary focus:ring-0 transition-all text-lg font-medium" placeholder="Search by destination or flight number..." type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-black uppercase tracking-widest mb-1 text-slate-500">Route Region</label>
+<div class="relative">
+<select class="w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl py-4 px-4 appearance-none focus:border-primary focus:ring-0 text-lg font-medium">
+<option>International</option>
+<option>Domestic (USA)</option>
+<option>Transatlantic</option>
+<option>Pacific Routes</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-black uppercase tracking-widest mb-1 text-slate-500">Aircraft Type</label>
+<div class="relative">
+<select class="w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl py-4 px-4 appearance-none focus:border-primary focus:ring-0 text-lg font-medium">
+<option>All Fleet</option>
+<option>Boeing 707 Jet</option>
+<option>Douglas DC-8</option>
+<option>Caravelle VI-R</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Timetable Navigation -->
+<div class="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+<button class="bg-primary text-white px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap">Monday</button>
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap hover:bg-primary/20">Tuesday</button>
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap hover:bg-primary/20">Wednesday</button>
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap hover:bg-primary/20">Thursday</button>
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap hover:bg-primary/20">Friday</button>
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap hover:bg-primary/20">Saturday</button>
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap hover:bg-primary/20 text-primary">Sunday</button>
+</div>
+<!-- Main Timetable Table -->
+<div class="bg-white dark:bg-slate-900 border-2 border-slate-900 dark:border-slate-700 rounded-lg overflow-hidden shadow-[8px_8px_0px_0px_rgba(236,91,19,0.2)]">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-900 text-white uppercase text-xs tracking-[0.2em]">
+<th class="px-6 py-4 font-black">Flight No.</th>
+<th class="px-6 py-4 font-black">From (Origin)</th>
+<th class="px-6 py-4 font-black">To (Destination)</th>
+<th class="px-6 py-4 font-black">Dep.</th>
+<th class="px-6 py-4 font-black">Arr.</th>
+<th class="px-6 py-4 font-black">Equipment</th>
+<th class="px-6 py-4 font-black">Stops</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5 font-black text-primary">RS 101</td>
+<td class="px-6 py-5">
+<div class="font-bold">NEW YORK</div>
+<div class="text-xs text-slate-400">JFK International</div>
+</td>
+<td class="px-6 py-5">
+<div class="font-bold">LONDON</div>
+<div class="text-xs text-slate-400">Heathrow Airport</div>
+</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">08:00</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">20:15</td>
+<td class="px-6 py-5 text-sm italic">Boeing 707-320</td>
+<td class="px-6 py-5">
+<span class="bg-green-100 text-green-800 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Non-Stop</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors bg-slate-50 dark:bg-slate-800/30">
+<td class="px-6 py-5 font-black text-primary">RS 245</td>
+<td class="px-6 py-5">
+<div class="font-bold">CHICAGO</div>
+<div class="text-xs text-slate-400">O'Hare Terminal 1</div>
+</td>
+<td class="px-6 py-5">
+<div class="font-bold">PARIS</div>
+<div class="text-xs text-slate-400">Orly Airport</div>
+</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">11:30</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">01:45 <span class="text-[10px] align-top text-primary font-black">+1</span></td>
+<td class="px-6 py-5 text-sm italic">Boeing 707 Jet</td>
+<td class="px-6 py-5">
+<span class="bg-slate-200 text-slate-600 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">1 Stop (Shannon)</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5 font-black text-primary">RS 082</td>
+<td class="px-6 py-5">
+<div class="font-bold">LOS ANGELES</div>
+<div class="text-xs text-slate-400">LAX International</div>
+</td>
+<td class="px-6 py-5">
+<div class="font-bold">TOKYO</div>
+<div class="text-xs text-slate-400">Haneda Int'l</div>
+</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">22:00</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">06:30 <span class="text-[10px] align-top text-primary font-black">+2</span></td>
+<td class="px-6 py-5 text-sm italic">Boeing 707-320</td>
+<td class="px-6 py-5">
+<span class="bg-slate-200 text-slate-600 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">1 Stop (Honolulu)</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors bg-slate-50 dark:bg-slate-800/30">
+<td class="px-6 py-5 font-black text-primary">RS 412</td>
+<td class="px-6 py-5">
+<div class="font-bold">ROME</div>
+<div class="text-xs text-slate-400">Fiumicino</div>
+</td>
+<td class="px-6 py-5">
+<div class="font-bold">ATHENS</div>
+<div class="text-xs text-slate-400">Ellinikon</div>
+</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">14:15</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">16:45</td>
+<td class="px-6 py-5 text-sm italic">Caravelle VI-R</td>
+<td class="px-6 py-5">
+<span class="bg-green-100 text-green-800 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Non-Stop</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5 font-black text-primary">RS 550</td>
+<td class="px-6 py-5">
+<div class="font-bold">NEW YORK</div>
+<div class="text-xs text-slate-400">JFK International</div>
+</td>
+<td class="px-6 py-5">
+<div class="font-bold">MIAMI</div>
+<div class="text-xs text-slate-400">Miami Int'l</div>
+</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">09:15</td>
+<td class="px-6 py-5 font-mono text-lg font-bold">12:00</td>
+<td class="px-6 py-5 text-sm italic">Douglas DC-8</td>
+<td class="px-6 py-5">
+<span class="bg-green-100 text-green-800 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Non-Stop</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-slate-900 p-4 flex justify-between items-center text-white/60 text-[10px] uppercase font-bold tracking-widest">
+<div>© 1964 RETRO SKIES AIRLINES CORPORATION</div>
+<div class="flex gap-4">
+<span>* +1 Denotes Next Day Arrival</span>
+<span>* All Times Local</span>
+</div>
+</div>
+</div>
+<!-- Call to Action / Footer Card -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-primary/10 border-2 border-primary/20 p-8 rounded-2xl relative overflow-hidden group">
+<span class="material-symbols-outlined text-8xl absolute -right-4 -bottom-4 text-primary/10 transition-transform group-hover:scale-110">local_activity</span>
+<h3 class="text-2xl font-black uppercase text-primary mb-2">Book Your Ticket</h3>
+<p class="text-slate-600 dark:text-slate-400 mb-6">Experience the Royal Ambassador Service. Multi-course meals and silver service on every transatlantic crossing.</p>
+<button class="bg-primary text-white px-8 py-3 rounded-xl font-bold uppercase tracking-wider hover:bg-primary/90 shadow-lg shadow-primary/20">Reserve Now</button>
+</div>
+<div class="bg-slate-900 p-8 rounded-2xl relative overflow-hidden">
+<div class="flex items-center gap-4 mb-4">
+<div class="size-12 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<h3 class="text-xl font-black text-white uppercase">24-Hour Reservations</h3>
+<p class="text-white/60 text-sm">Call your local travel agent or Retro Skies direct.</p>
+</div>
+</div>
+<div class="text-3xl font-mono font-bold text-primary tracking-tighter">1-800-SKY-RETR-O</div>
+<div class="mt-4 pt-4 border-t border-white/10 flex gap-4">
+<img alt="Ground Service" class="w-24 h-16 rounded object-cover grayscale opacity-50" data-alt="Vintage bus waiting at tarmac" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA71qCzYfNBYdkvvzIQbYBnsPUvFHKrtz39ZMu6tUdr8h2s92VvQaWQTlkMJlH4DMDTgqgNIToEbRFm9Hbp4318jqHZMX_xfMjuzxDBo_iwksVMiE_WBRJpaVkBD33Grvh5BHvCVlEZEup488saxmniUhnEUKWgTl3VIzRmIqfiCD9BJoS98B--Bh1jaYA9MFeUp41Y9NrhN81wJ3c61ke0iseS1J_YRGmTrtfj9iy_o-D8vpY9znOxPkDtvqnCKYGI6gDPdSCjwgw"/>
+<p class="text-xs text-white/40 italic">Complementary limousine service available for first-class passengers in New York, London, and Paris.</p>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-16 py-8 border-t border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 text-center">
+<div class="flex justify-center items-center gap-2 text-primary/50 mb-4">
+<span class="material-symbols-outlined">flight</span>
+<span class="material-symbols-outlined">language</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-400">The Jet Age is Retro Skies</p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Retro Skies - Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Sticky Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md px-6 md:px-20 lg:px-40 py-4">
+<div class="flex items-center justify-between max-w-[1200px] mx-auto">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-2xl fill-1">flight_takeoff</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-extrabold leading-tight tracking-tight">Retro Skies</h2>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-semibold transition-colors" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-semibold transition-colors" href="#">Book</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-semibold transition-colors" href="#">My Trips</a>
+<a class="text-primary text-sm font-bold leading-normal relative after:absolute after:bottom-[-20px] after:left-0 after:w-full after:h-[3px] after:bg-primary" href="#">Profile</a>
+</nav>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="Professional portrait of a male airline traveler" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgyJr90FvlXUuPkNEbAb_0uijqSYKyxN-ojjjijEDadBMxdYDQHTknpFgZ3gmWy8-mcztadGT5VQwj3_m7QXnVPzdWT56IIo8PaX5iUxySCKYCPh8lE50Bd3CVV0Eid2F022hoG111GB4LxooDAc_U1BkpgkZHRtfRbJiJX2ptYuQPa3rrgxdyr98Vbsbf5zRfAjoZ3p9poGgy6Gk56GRaj58VqUgGc5Xgz4yrUjbmKuIjRDJ34ozWrMgfC0wGbIJNQfmZ8DVxXu4");'></div>
+</div>
+</div>
+</header>
+<main class="max-w-[960px] mx-auto px-6 py-10">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center mb-12">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32 border-4 border-primary/10 shadow-xl" data-alt="User profile photo of Alex Sterling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC7IxdewUp9ygb2F7kfv1Y7hnXcO4PZisHaqd3rkfhoXrm4llCDVeKJL2PVICeXfMoWL4l2YyOv-Nl3NrEDXGJo1H812aJw6qhHzcFWKXXQWSbUwlhT2VmnwiTMCq3wOsBXBVSYIN0-8lIRzhsvfVL9jf1ZCg8rScjWCHLvUCWXZXr-fcI_fCpg8oesC_vzDcKy5ft6nO3EXDtUgrirVWHEIntqylgIk8EZJvhmCD-7IPCbGG52QTqIaE6E6D2XijSP-TgV_gfnA8U");'></div>
+<div class="absolute bottom-0 right-0 bg-primary text-white p-1.5 rounded-full border-2 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined text-sm block">edit</span>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Alex Sterling</h1>
+<div class="flex items-center justify-center gap-2 mt-1">
+<span class="material-symbols-outlined text-primary text-lg">verified_user</span>
+<p class="text-primary font-bold text-sm uppercase tracking-widest">Elite Sky Club Member</p>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mt-1 italic">Preserving the golden age of flight since 1974</p>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Traveler Info Section -->
+<section class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">badge</span>
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Traveler Info</h2>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<p class="text-slate-500 dark:text-slate-400 text-sm">Frequent Flyer Number</p>
+<p class="font-mono text-primary font-bold">RS-8829401</p>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<p class="text-slate-500 dark:text-slate-400 text-sm">Membership Status</p>
+<p class="text-slate-900 dark:text-slate-100 font-semibold">Gold Wing Tier</p>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<p class="text-slate-500 dark:text-slate-400 text-sm">Passport Number</p>
+<p class="text-slate-900 dark:text-slate-100 font-semibold">********4421</p>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<p class="text-slate-500 dark:text-slate-400 text-sm">Miles Balance</p>
+<p class="text-slate-900 dark:text-slate-100 font-semibold">124,500 <span class="text-xs text-primary">pts</span></p>
+</div>
+</div>
+<button class="w-full mt-6 py-2 px-4 rounded bg-primary/10 text-primary hover:bg-primary hover:text-white font-bold transition-all text-sm">Update Information</button>
+</section>
+<!-- Preferences Section -->
+<section class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">settings_suggest</span>
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Travel Preferences</h2>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">chair</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Seat Choice</p>
+</div>
+<p class="text-slate-900 dark:text-slate-100 font-semibold">Window (Preferred)</p>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">restaurant</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Meal Choice</p>
+</div>
+<p class="text-slate-900 dark:text-slate-100 font-semibold">Vintage Roast / Low Sodium</p>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">luggage</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Extra Baggage</p>
+</div>
+<p class="text-slate-900 dark:text-slate-100 font-semibold">Always Added (1)</p>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">campaign</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Cabin Class</p>
+</div>
+<p class="text-slate-900 dark:text-slate-100 font-semibold italic">Classic First Class</p>
+</div>
+</div>
+<button class="w-full mt-6 py-2 px-4 rounded bg-primary text-white hover:bg-primary/80 font-bold transition-all text-sm">Edit Preferences</button>
+</section>
+</div>
+<!-- Account Settings Section -->
+<section class="mt-12 bg-primary/5 border border-primary/10 rounded-xl overflow-hidden">
+<div class="bg-primary/10 px-6 py-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">manage_accounts</span>
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Account Settings</h2>
+</div>
+<div class="p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<a class="group flex flex-col gap-1 p-4 rounded-lg bg-background-light dark:bg-background-dark border border-primary/5 hover:border-primary transition-colors" href="#">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">lock</span>
+<span class="font-bold text-slate-900 dark:text-slate-100">Security</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Manage password and 2FA authentication</p>
+</a>
+<a class="group flex flex-col gap-1 p-4 rounded-lg bg-background-light dark:bg-background-dark border border-primary/5 hover:border-primary transition-colors" href="#">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">payments</span>
+<span class="font-bold text-slate-900 dark:text-slate-100">Billing</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Update credit cards and billing history</p>
+</a>
+<a class="group flex flex-col gap-1 p-4 rounded-lg bg-background-light dark:bg-background-dark border border-primary/5 hover:border-primary transition-colors" href="#">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">notifications</span>
+<span class="font-bold text-slate-900 dark:text-slate-100">Notifications</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Control flight alerts and promotions</p>
+</a>
+<a class="group flex flex-col gap-1 p-4 rounded-lg bg-background-light dark:bg-background-dark border border-primary/5 hover:border-primary transition-colors" href="#">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">language</span>
+<span class="font-bold text-slate-900 dark:text-slate-100">Language</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Change display language and region</p>
+</a>
+<a class="group flex flex-col gap-1 p-4 rounded-lg bg-background-light dark:bg-background-dark border border-primary/5 hover:border-primary transition-colors" href="#">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">family_restroom</span>
+<span class="font-bold text-slate-900 dark:text-slate-100">Family Members</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Link accounts for family travel miles</p>
+</a>
+<a class="group flex flex-col gap-1 p-4 rounded-lg bg-background-light dark:bg-background-dark border border-primary/5 hover:border-primary transition-colors" href="#">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-red-400 group-hover:text-red-600">logout</span>
+<span class="font-bold text-red-500">Sign Out</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Log out of your Retro Skies account</p>
+</a>
+</div>
+</div>
+</section>
+<!-- Danger Zone -->
+<div class="mt-12 mb-20 text-center">
+<button class="text-slate-400 dark:text-slate-600 hover:text-red-500 text-xs font-medium uppercase tracking-widest transition-colors">
+                Delete Account &amp; Data
+            </button>
+</div>
+</main>
+<footer class="bg-primary/5 border-t border-primary/10 py-12 px-6">
+<div class="max-w-[960px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="flex items-center gap-3 text-primary opacity-50 grayscale">
+<span class="material-symbols-outlined text-2xl">flight_takeoff</span>
+<h2 class="text-lg font-bold">Retro Skies</h2>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">© 1974 - 2024 Retro Skies Airways. All Rights Reserved.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-primary text-xs uppercase tracking-widest font-bold transition-colors" href="#">Privacy</a>
+<a class="text-slate-500 hover:text-primary text-xs uppercase tracking-widest font-bold transition-colors" href="#">Terms</a>
+<a class="text-slate-500 hover:text-primary text-xs uppercase tracking-widest font-bold transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

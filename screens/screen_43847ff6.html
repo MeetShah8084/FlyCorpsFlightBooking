@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Retro Skies | Vintage Flight Booking</title>
+<!-- Tailwind CSS with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#bd660f',
+            vintage: {
+              cream: '#fdfaf1',
+              paper: '#f4ecd8',
+              navy: '#2c3e50',
+              accent: '#d35400',
+              muted: '#7f8c8d'
+            }
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '8px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-retro-styles">/* Custom textures and subtle gradients for that 70s print feel */
+body {
+    background-color: #fdfaf1;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDT6fbgDeJu3uIzD56xzhuK8HI54Xx8Xsw1YRsyoJvU90Krw2dqms-H_evi1i-JD0l3-gGTfuUt3KqOmumIEaUtaVrAP3NpvJm3WPyq4V4uXfE4ZZ8Rz3slhvH3_tyiU_cLvZeibFXB-nluUpmdKyqaa0-W0Nlp-RxVADqIkePRgCZfhZGeM1MirWtHN3gNa557B34uYllR0V3VGF-Vtia0nyVS4rbv0RIgfa6zMLraGBSuaj-oxvCGcfha0BkBh7vTXw184CpDoH8);
+    color: #2c3e50
+    }
+.retro-border {
+    border: 2px solid #bd660f
+    }
+.retro-card {
+    box-shadow: 4px 4px 0 0 #bd660f
+    }
+.retro-inset {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1)
+    }</style>
+</head>
+<body class="font-sans antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-vintage-cream border-b-2 border-brand/20 shadow-sm">
+<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between" data-purpose="top-navigation">
+<div class="flex items-center gap-2">
+<!-- Logo -->
+<div class="w-10 h-10 bg-brand rounded-full flex items-center justify-center text-white font-bold italic text-xl" style="">
+          S
+        </div>
+<span class="text-2xl font-bold tracking-tighter text-brand uppercase" style="">FlyX</span>
+</div>
+<ul class="hidden md:flex space-x-8 font-medium uppercase text-sm tracking-widest">
+<li class="" style=""><a class="hover:text-brand transition-colors" href="#" style="">Schedules</a></li>
+<li class="" style=""><a class="hover:text-brand transition-colors" href="#" style="">Destinations</a></li>
+<li class="" style=""><a class="hover:text-brand transition-colors" href="#" style="">Heritage</a></li>
+<li class="" style=""><a class="hover:text-brand transition-colors" href="#" style="">Check-In</a></li>
+</ul>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 bg-brand text-white font-bold rounded-custom hover:bg-opacity-90 transition-all uppercase text-xs tracking-widest shadow-md" style="">
+          Member Login
+        </button>
+</div>
+</nav>
+</header>
+<!-- END: MainHeader -->
+<main class="pt-28 pb-20 px-4 max-w-7xl mx-auto">
+<!-- BEGIN: HeroSearch -->
+<section class="mb-12" data-purpose="flight-search-container">
+<div class="bg-vintage-paper p-8 rounded-custom border-2 border-brand/10 shadow-lg">
+<h1 class="text-3xl md:text-4xl font-bold mb-8 text-center text-brand uppercase tracking-tight" style="">Experience Golden Age Travel</h1>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+<div class="md:col-span-1">
+<label class="block text-xs font-bold uppercase mb-2 text-vintage-navy/60" style="">From</label>
+<input class="w-full bg-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" placeholder="New York (JFK)" type="text">
+</div>
+<div class="md:col-span-1">
+<label class="block text-xs font-bold uppercase mb-2 text-vintage-navy/60" style="">To</label>
+<input class="w-full bg-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" placeholder="London (LHR)" type="text">
+</div>
+<div class="md:col-span-1">
+<label class="block text-xs font-bold uppercase mb-2 text-vintage-navy/60" style="">Departure Date</label>
+<input class="w-full bg-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" type="date">
+</div>
+<div class="flex gap-2">
+<button class="flex-grow bg-brand text-white font-bold py-3 px-6 rounded-custom hover:opacity-90 transition-all uppercase" style="">
+              Find Flights
+            </button>
+<!-- BEGIN: FilterIcon -->
+<button class="bg-white border-2 border-brand/20 p-3 rounded-custom hover:bg-brand/5 group transition-all" data-purpose="filter-trigger" id="filter-toggle" title="Toggle Filters" style="">
+<svg class="h-6 w-6 text-brand group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- END: FilterIcon -->
+</div>
+</div>
+<!-- Hidden Filter List -->
+<div class="hidden mt-6 pt-6 border-t border-brand/10 grid grid-cols-2 md:grid-cols-4 gap-4" data-purpose="filter-options" id="filter-panel">
+<div class="flex items-center gap-2">
+<input class="text-brand rounded focus:ring-brand" id="f1" type="checkbox">
+<label class="text-sm font-medium" for="f1" style="">Non-stop Only</label>
+</div>
+<div class="flex items-center gap-2">
+<input class="text-brand rounded focus:ring-brand" id="f2" type="checkbox">
+<label class="text-sm font-medium" for="f2" style="">First Class Only</label>
+</div>
+<div class="flex items-center gap-2">
+<input class="text-brand rounded focus:ring-brand" id="f3" type="checkbox">
+<label class="text-sm font-medium" for="f3" style="">Propeller Aircraft</label>
+</div>
+<div class="flex items-center gap-2">
+<input class="text-brand rounded focus:ring-brand" id="f4" type="checkbox">
+<label class="text-sm font-medium" for="f4" style="">Pan Am Alliance</label>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSearch -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- BEGIN: FlightList -->
+<section class="lg:col-span-2 space-y-6" data-purpose="available-flights">
+<div class="flex justify-between items-center border-b-2 border-brand pb-2">
+<h2 class="text-xl font-bold uppercase tracking-wider text-brand" style="">Available Flights</h2>
+<span class="text-xs font-mono uppercase text-vintage-muted" style="">8 Results Found</span>
+</div>
+<!-- Flight Card 1 -->
+<div class="bg-white border-2 border-brand/10 rounded-custom p-6 retro-card flex flex-col md:flex-row gap-6 items-center">
+<div class="flex-shrink-0 w-24 h-24 bg-vintage-paper rounded-full flex items-center justify-center p-4">
+<img alt="Airline Logo" class="grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgGQkITV9cOPHA8sSiwFIz3ACGFACX3hyCZZJpmcjjuWNceanVcezeY-T-r9T0GkQ4HeDnKnTKrzBEAPMTALVq15GRptjbqLibueWLB-NXS29MirrrjYTjxXtk0HP-Qt8kjxNd7ENtVhiBni2041Ofdn9N91udXibW4aOB366w_gcDgZR3c0EcJ3lL8uyecaYJGXRTF3PpDxNNjjcnVj5jpYWTOSWuLxnAjx9RDTShCZsBsgsLPtIo0D_3YgtQAE732Leo_3p_9H4" style="">
+</div>
+<div class="flex-grow grid grid-cols-3 gap-4 text-center md:text-left">
+<div>
+<p class="text-2xl font-bold" style="">10:45</p>
+<p class="text-xs uppercase font-bold text-vintage-muted" style="">JFK · NYC</p>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-[10px] uppercase font-bold text-brand" style="">Non-stop</span>
+<div class="w-full h-[2px] bg-brand/20 relative my-2">
+<div class="absolute -top-1 left-1/2 -translate-x-1/2 text-brand" style="">✈</div>
+</div>
+<p class="text-[10px] uppercase text-vintage-muted" style="">7h 15m</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-bold" style="">23:00</p>
+<p class="text-xs uppercase font-bold text-vintage-muted" style="">LHR · LDN</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center border-l-0 md:border-l-2 border-dashed border-brand/20 pl-0 md:pl-6 w-full md:w-32">
+<p class="text-xl font-bold text-brand" style="">$420</p>
+<p class="text-[10px] uppercase font-bold mb-3" style="">Round Trip</p>
+<button class="w-full bg-brand text-white text-[10px] py-2 px-4 rounded-custom uppercase font-bold tracking-widest hover:brightness-110" style="">Book</button>
+</div>
+</div>
+<!-- Flight Card 2 -->
+<div class="bg-white border-2 border-brand/10 rounded-custom p-6 retro-card flex flex-col md:flex-row gap-6 items-center">
+<div class="flex-shrink-0 w-24 h-24 bg-vintage-paper rounded-full flex items-center justify-center p-4">
+<img alt="Airline Logo" class="grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApASh5GWfa2oKtdUVKh0Fjhtzya98dktOTSr9PMI7gKCC3UdM7g9DkLzBor6N52veMBeA7BM32d8JE42Tfa7AfsjXM1dnmKO1DJw8mOpvhdEcB1hKgNLNr97Ee5pnPxNPw_-yPYwGbR5pzBUHQuOQtx9x0QGtU7lVgIl5wMBnDM026qdeK9H7-ZLt07eeMwmlx9VYRxk3JbDlr_ASWacgn3E8fGRN6os68aXDcOSfhWtXVwPgFYu7MkYgAHv3dsrT8_WEZdsgpbvM" style="">
+</div>
+<div class="flex-grow grid grid-cols-3 gap-4 text-center md:text-left">
+<div>
+<p class="text-2xl font-bold" style="">08:15</p>
+<p class="text-xs uppercase font-bold text-vintage-muted" style="">JFK · NYC</p>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-[10px] uppercase font-bold text-brand" style="">1 Stop</span>
+<div class="w-full h-[2px] bg-brand/20 relative my-2">
+<div class="absolute -top-1 left-1/3 text-brand" style="">✈</div>
+<div class="absolute -top-1 left-2/3 text-brand" style="">●</div>
+</div>
+<p class="text-[10px] uppercase text-vintage-muted" style="">10h 40m</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-bold" style="">23:55</p>
+<p class="text-xs uppercase font-bold text-vintage-muted" style="">LHR · LDN</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center border-l-0 md:border-l-2 border-dashed border-brand/20 pl-0 md:pl-6 w-full md:w-32">
+<p class="text-xl font-bold text-brand" style="">$385</p>
+<p class="text-[10px] uppercase font-bold mb-3" style="">Round Trip</p>
+<button class="w-full bg-brand text-white text-[10px] py-2 px-4 rounded-custom uppercase font-bold tracking-widest hover:brightness-110" style="">Book</button>
+</div>
+</div>
+<!-- Flight Card 3 -->
+<div class="bg-white border-2 border-brand/10 rounded-custom p-6 retro-card flex flex-col md:flex-row gap-6 items-center">
+<div class="flex-shrink-0 w-24 h-24 bg-vintage-paper rounded-full flex items-center justify-center p-4">
+<img alt="Airline Logo" class="grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1NF0c1iKeNq6rmryUI2K0e8qKlsMoT-j6PhXl1CxobKP65DLq3f3V7HjsqHZOjwWyF2TviNtShJWcNsf86QFnW6xhqHruNYXZhMeB7KbYBn5iF9DwHQzdJSDam9YiPCbWaOSRXIkaDERZ0V3myXEfsNGSSkVTt1-gSwaJgrriNPfpsfW9-q6710qxjuqw_5zSEt5V07hnP0JWUaDy0n1UcB5tcQdVqDVakBC0ESKgHqPZq48-5JFXwWEeLWdRIxEC8vmo3LGLZTY" style="">
+</div>
+<div class="flex-grow grid grid-cols-3 gap-4 text-center md:text-left">
+<div>
+<p class="text-2xl font-bold" style="">14:00</p>
+<p class="text-xs uppercase font-bold text-vintage-muted" style="">JFK · NYC</p>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-[10px] uppercase font-bold text-brand" style="">Non-stop</span>
+<div class="w-full h-[2px] bg-brand/20 relative my-2">
+<div class="absolute -top-1 left-1/2 -translate-x-1/2 text-brand" style="">✈</div>
+</div>
+<p class="text-[10px] uppercase text-vintage-muted" style="">7h 00m</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-bold" style="">02:00</p>
+<p class="text-xs uppercase font-bold text-vintage-muted" style="">LHR · LDN</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center border-l-0 md:border-l-2 border-dashed border-brand/20 pl-0 md:pl-6 w-full md:w-32">
+<p class="text-xl font-bold text-brand" style="">$550</p>
+<p class="text-[10px] uppercase font-bold mb-3" style="">First Class</p>
+<button class="w-full bg-brand text-white text-[10px] py-2 px-4 rounded-custom uppercase font-bold tracking-widest hover:brightness-110" style="">Book</button>
+</div>
+</div>
+</section>
+<!-- END: FlightList -->
+<!-- BEGIN: OffersBentoSection -->
+<section class="lg:col-span-1" data-purpose="promotional-offers">
+<h2 class="text-xl font-bold uppercase tracking-wider text-brand border-b-2 border-brand pb-2 mb-6" style="">Special Offers</h2>
+<div class="grid grid-cols-2 gap-4">
+<!-- Big Promo -->
+<div class="col-span-2 relative h-48 overflow-hidden rounded-custom shadow-md group">
+<img alt="Paris Heritage" class="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP0r20M_TsspfxQUkK_0pJ8-pXsoFb6rOOiNiLxD5qtXE5lz197YzYKrj9T5-3Vci4e5gNG3OELwQqxwF_1lCliP5Q-DZbyNqLn0fYNBqyXO5hHIa82Dj0UaK32vLGfIKcHyuF_qeDVlKNUM7dBoDxo18gNREU0hYWMm8bLlXvL1mNEGbW_TdSZliZkfFZR3CIVlLoocTBIIiQMg0CSSKspbfijsQjZo8V6Io_R1LbwB18sqvrtYkc6CZ4EojqgbTEsTLrfrw1_CU" style="">
+<div class="absolute inset-0 p-4 flex flex-col justify-end">
+<h3 class="text-white text-lg font-bold uppercase leading-tight" style="">Parisian Weekend Special</h3>
+<p class="text-brand font-bold text-sm" style="">Starting at $299</p>
+</div>
+</div>
+<!-- Small Promo 1 -->
+<div class="col-span-1 relative h-40 overflow-hidden rounded-custom shadow-md group">
+<img alt="Cabin Service" class="w-full h-full object-cover sepia group-hover:sepia-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCb9gvEaFFsPy5GrDPP1qUsqU_oacBcQ9MsFL71ozXQmFbL3vha66MwJTPH4ZRnK3xS4SqbCqLeyxSfCxH468-7kCSeFSouDtaR2bcN13OnwCD9NR6pGs4AMirEBvrypk_KbFtubFXUW1LRhl5aemRHbPV00lwRM9ee9m_o4DMRUfLtH4g1Is7BY9XNhy5_xLvq39y3PblMo_mb-SsREJdtdsitqNGwdxIWpMc4s58hz1FK_DtNDDNch8qQGCjIne0rLDlYtS1K2s" style="">
+<div class="absolute inset-0 bg-brand/20 flex items-center justify-center p-2">
+<p class="text-white text-[10px] font-bold uppercase text-center tracking-tighter" style="">Upgrade to First Class</p>
+</div>
+</div>
+<!-- Small Promo 2 -->
+<div class="col-span-1 bg-brand p-4 flex flex-col justify-between rounded-custom shadow-md">
+<p class="text-white font-bold text-xs uppercase italic" style="">Limited Time</p>
+<p class="text-white text-2xl font-black" style="">20% OFF</p>
+<p class="text-white/80 text-[10px] uppercase" style="">Using code 'RETRO'</p>
+</div>
+<!-- Medium Promo -->
+<div class="col-span-2 relative h-32 overflow-hidden rounded-custom shadow-md group">
+<img alt="Islands" class="w-full h-full object-cover grayscale brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2xwLGTd-ZzojbWDzotewSehfOdf9TKwkJFz8gExCnVRClkV2-75gq0wMW8XndSjrU4_2gS-c44Kdb_owC2HltgaZjX338a9uct_1u_vSV7kL3TYIFzecCsgUVD-o_Tp0zJA2Ce_VsBP9qoMo3mmX3mLqB79E8JhnqltPJIRthESfRVi1fGBZozrz-XKZK-5kKcMCrfO0-LLSoeqCnAfpX0nvk0p8mgdhaMkQToW5aN2g4D5hnOJ2wtGq6iXhPJV8Z36jNUtpi4H8" style="">
+<div class="absolute inset-0 flex items-center px-4 bg-gradient-to-r from-black/60 to-transparent">
+<h3 class="text-white text-md font-bold uppercase leading-tight w-1/2" style="">Island Hopping: 1978 Routes Reopened</h3>
+</div>
+</div>
+</div>
+<!-- Heritage Box -->
+<div class="mt-8 p-6 border-2 border-dashed border-brand/40 bg-brand/5 rounded-custom">
+<p class="text-brand font-bold uppercase text-xs mb-2" style="">Heritage Service</p>
+<p class="text-sm italic leading-relaxed" style="">"Fly as you did in the age of elegance. Complementary cocktails and porcelain dining on every transcontinental flight."</p>
+</div>
+</section>
+<!-- END: OffersBentoSection -->
+</div>
+</main>
+<!-- BEGIN: Footer -->
+<footer class="bg-vintage-paper border-t-2 border-brand mt-12 py-12 px-4" data-purpose="main-footer">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="text-center md:text-left">
+<p class="text-brand font-bold uppercase tracking-tighter text-xl" style="">FlyX Corporations</p>
+<p class="text-[10px] uppercase text-vintage-muted mt-1" style="">Established 1964 — Reimagined 2026</p>
+</div>
+<div class="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-vintage-muted">
+<a class="hover:text-brand" href="#" style="">Privacy Policy</a>
+<a class="hover:text-brand" href="#" style="">Terms of Carriage</a>
+<a class="hover:text-brand" href="#" style="">Fleet Info</a>
+<a class="hover:text-brand" href="#" style="">Support</a>
+</div>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full border border-brand/40 flex items-center justify-center text-brand" style="">f</div>
+<div class="w-8 h-8 rounded-full border border-brand/40 flex items-center justify-center text-brand" style="">t</div>
+<div class="w-8 h-8 rounded-full border border-brand/40 flex items-center justify-center text-brand" style="">i</div>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+<script data-purpose="ui-interactions">
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterToggle = document.getElementById('filter-toggle');
+      const filterPanel = document.getElementById('filter-panel');
+
+      filterToggle.addEventListener('click', () => {
+        filterPanel.classList.toggle('hidden');
+        filterToggle.classList.toggle('bg-brand');
+        filterToggle.querySelector('svg').classList.toggle('text-white');
+        filterToggle.querySelector('svg').classList.toggle('text-brand');
+      });
+    });
+  </script>
+</body></html>
