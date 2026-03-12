@@ -14,6 +14,11 @@ function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'login' | 'book' | 'mytrips' | 'boarding-pass'>('home')
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userData, setUserData] = useState<{
+    name: string;
+    email: string;
+    picture: string;
+  } | null>(null)
 
   useEffect(() => {
     if (isDarkMode) {
@@ -53,11 +58,12 @@ function App() {
             setIsDarkMode={setIsDarkMode}
             setCurrentPage={setCurrentPage}
             setIsLoggedIn={setIsLoggedIn}
+            userData={userData}
           />
         </main>
       ) : (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto">
-          <Login setIsLoggedIn={setIsLoggedIn} setCurrentPage={setCurrentPage} />
+          <Login setIsLoggedIn={setIsLoggedIn} setCurrentPage={setCurrentPage} setUserData={setUserData} />
         </main>
       )}
       <Footer />
