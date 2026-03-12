@@ -2,7 +2,7 @@ import React from 'react';
 
 interface LoginProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<'home' | 'profile' | 'login' | 'book' | 'mytrips'>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<'home' | 'profile' | 'login' | 'book' | 'mytrips' | 'boarding-pass'>>;
 }
 
 const Login: React.FC<LoginProps> = ({ setIsLoggedIn, setCurrentPage }) => {

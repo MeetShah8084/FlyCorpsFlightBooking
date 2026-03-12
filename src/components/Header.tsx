@@ -1,6 +1,6 @@
 interface HeaderProps {
-  currentPage: 'home' | 'profile' | 'login' | 'book' | 'mytrips';
-  setCurrentPage: React.Dispatch<React.SetStateAction<'home' | 'profile' | 'login' | 'book' | 'mytrips'>>;
+  currentPage: 'home' | 'profile' | 'login' | 'book' | 'mytrips' | 'boarding-pass';
+  setCurrentPage: React.Dispatch<React.SetStateAction<'home' | 'profile' | 'login' | 'book' | 'mytrips' | 'boarding-pass'>>;
   isLoggedIn: boolean;
 }
 
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage, isLoggedIn
           <li>
             <button
               onClick={() => setCurrentPage('mytrips')}
-              className={`hover:text-brand transition-colors ${currentPage === 'mytrips' ? 'text-brand border-b-2 border-brand font-bold' : ''}`}
+              className={`hover:text-brand transition-colors ${['mytrips', 'boarding-pass'].includes(currentPage) ? 'text-brand border-b-2 border-brand font-bold' : ''}`}
             >
               MY TRIPS
             </button>

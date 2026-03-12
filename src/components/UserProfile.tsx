@@ -7,7 +7,7 @@ import {
 interface UserProfileProps {
   isDarkMode: boolean;
   setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<'home' | 'profile' | 'login' | 'book' | 'mytrips'>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<'home' | 'profile' | 'login' | 'book' | 'mytrips' | 'boarding-pass'>>;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

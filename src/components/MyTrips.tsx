@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const MyTrips = () => {
+const MyTrips = ({ setCurrentPage }: { setCurrentPage: (page: 'boarding-pass' | 'home' | 'profile' | 'login' | 'book' | 'mytrips') => void }) => {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past' | 'cancelled'>('upcoming');
 
   return (
@@ -76,7 +76,7 @@ const MyTrips = () => {
                     </div>
                   </div>
                   <div className="mt-8 flex justify-end">
-                    <button className="bg-brand text-white font-bold py-2 px-6 rounded-custom text-sm hover:opacity-90 transition-all uppercase tracking-widest shadow-md">
+                    <button onClick={() => setCurrentPage('boarding-pass')} className="bg-brand text-white font-bold py-2 px-6 rounded-custom text-sm hover:opacity-90 transition-all uppercase tracking-widest shadow-md">
                       View Boarding Pass
                     </button>
                   </div>
@@ -124,7 +124,7 @@ const MyTrips = () => {
                     </div>
                   </div>
                   <div className="mt-8 flex justify-end">
-                    <button className="bg-brand text-white font-bold py-2 px-6 rounded-custom text-sm hover:opacity-90 transition-all uppercase tracking-widest shadow-md">
+                    <button onClick={() => setCurrentPage('boarding-pass')} className="bg-brand text-white font-bold py-2 px-6 rounded-custom text-sm hover:opacity-90 transition-all uppercase tracking-widest shadow-md">
                       View Boarding Pass
                     </button>
                   </div>

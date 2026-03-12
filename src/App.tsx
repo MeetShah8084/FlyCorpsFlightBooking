@@ -8,9 +8,10 @@ import UserProfile from './components/UserProfile'
 import Login from './components/Login'
 import Book from './components/Book'
 import MyTrips from './components/MyTrips'
+import BoardingPass from './components/BoardingPass'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'login' | 'book' | 'mytrips'>('home')
+  const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'login' | 'book' | 'mytrips' | 'boarding-pass'>('home')
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -39,13 +40,17 @@ function App() {
         </main>
       ) : currentPage === 'mytrips' ? (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto flex">
-          <MyTrips />
+          <MyTrips setCurrentPage={setCurrentPage} />
+        </main>
+      ) : currentPage === 'boarding-pass' ? (
+        <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto flex">
+          <BoardingPass />
         </main>
       ) : currentPage === 'profile' ? (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto">
-          <UserProfile 
-            isDarkMode={isDarkMode} 
-            setIsDarkMode={setIsDarkMode} 
+          <UserProfile
+            isDarkMode={isDarkMode}
+            setIsDarkMode={setIsDarkMode}
             setCurrentPage={setCurrentPage}
             setIsLoggedIn={setIsLoggedIn}
           />
