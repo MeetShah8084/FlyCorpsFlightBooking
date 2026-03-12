@@ -46,10 +46,6 @@ const HeroSearch = () => {
             <label className="text-sm font-medium dark:text-white" htmlFor="f1">Non-stop Only</label>
           </div>
           <div className="flex items-center gap-2">
-            <input className="text-brand rounded focus:ring-brand" id="f2" type="checkbox" />
-            <label className="text-sm font-medium dark:text-white" htmlFor="f2">First Class Only</label>
-          </div>
-          <div className="flex items-center gap-2">
             <input className="text-brand rounded focus:ring-brand" id="f3" type="checkbox" />
             <label className="text-sm font-medium dark:text-white" htmlFor="f3">Propeller Aircraft</label>
           </div>

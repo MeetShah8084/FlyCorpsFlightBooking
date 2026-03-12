@@ -17,9 +17,9 @@ const SpecialOffers = () => {
         
         {/* Small Promo 1 */}
         <div className="col-span-1 relative h-40 overflow-hidden rounded-custom shadow-md group">
-          <img alt="Cabin Service" className="w-full h-full object-cover sepia group-hover:sepia-0 transition-all duration-500" src={flightCabin} />
-          <div className="absolute inset-0 bg-brand/20 flex items-center justify-center p-2">
-             <p className="text-white text-[10px] font-bold uppercase text-center tracking-tighter">Upgrade to First Class</p>
+          <img alt="Cabin Service" className="w-full h-full object-cover transition-all duration-500" src={flightCabin} />
+          <div className="absolute inset-0 flex items-center justify-center p-2">
+             <p className="text-white drop-shadow-lg text-[10px] font-bold uppercase text-center tracking-tighter">Upgrade to First Class</p>
           </div>
         </div>
         
