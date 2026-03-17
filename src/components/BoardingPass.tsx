@@ -11,13 +11,51 @@ import {
   Coffee 
 } from 'lucide-react';
 
-const BoardingPass = () => {
+interface BoardingPassProps {
+  booking: any;
+  userData: { id?: string; name: string; email: string; picture: string; } | null;
+  setCurrentPage: (page: 'boarding-pass' | 'home' | 'profile' | 'login' | 'book' | 'mytrips') => void;
+}
+
+const BoardingPass = ({ booking, userData, setCurrentPage }: BoardingPassProps) => {
+  if (!booking) {
+    return (
+      <div className="flex-1 w-full max-w-5xl mx-auto px-6 py-12 flex-grow text-center">
+        <h2 className="text-3xl font-black text-vintage-navy dark:text-white mb-4">No Boarding Pass Selected</h2>
+        <p className="text-vintage-muted dark:text-white/60 font-medium mb-8">Please select a flight from your trips to view the boarding pass.</p>
+        <button onClick={() => setCurrentPage('mytrips')} className="bg-brand text-white font-bold py-3 px-10 rounded-custom uppercase tracking-widest text-sm hover:opacity-90 transition-all shadow-md">
+          Back to My Trips
+        </button>
+      </div>
+    );
+  }
+
+  const flight = booking.flights;
+
+  const formatDate = (isoString: string) => {
+    return new Date(isoString).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase();
+  };
+
+  const formatTime = (isoString: string) => {
+    return new Date(isoString).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).toUpperCase();
+  };
+
+  const getDestinationImage = (city: string) => {
+    if (city.toLowerCase().includes('london')) return 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop';
+    if (city.toLowerCase().includes('rome')) return 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1996&auto=format&fit=crop';
+    if (city.toLowerCase().includes('paris')) return 'https://images.unsplash.com/photo-1431274172761-fca41d930114?q=80&w=2070&auto=format&fit=crop';
+    if (city.toLowerCase().includes('tokyo')) return 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1994&auto=format&fit=crop';
+    return 'https://images.unsplash.com/photo-1542259009477-d625272157b7?q=80&w=2069&auto=format&fit=crop';
+  };
   return (
     <div className="flex-1 w-full max-w-5xl mx-auto px-6 py-12 flex-grow">
       <div className="max-w-[1000px] w-full">
         <div className="mb-8 flex flex-col gap-2">
+          <button onClick={() => setCurrentPage('mytrips')} className="text-brand flex items-center gap-1 font-bold hover:underline w-fit mb-2">
+            &larr; Back to My Trips
+          </button>
           <h1 className="text-vintage-navy dark:text-white text-4xl font-black leading-tight tracking-tight">Your Boarding Pass</h1>
-          <p className="text-brand font-medium">Ready for departure, John Doe.</p>
+          <p className="text-brand font-medium">Ready for departure, {userData?.name || 'Traveler'}.</p>
         </div>
 
         {/* Boarding Pass Container */}
@@ -40,16 +78,16 @@ const BoardingPass = () => {
             {/* Flight Path */}
             <div className="flex justify-between items-center mb-10 px-4">
               <div className="text-center">
-                <h3 className="text-5xl font-black tracking-tighter">JFK</h3>
-                <p className="text-xs font-bold text-vintage-muted dark:text-white/60">NEW YORK</p>
+                <h3 className="text-5xl font-black tracking-tighter">{flight.origin_city.substring(0, 3).toUpperCase()}</h3>
+                <p className="text-xs font-bold text-vintage-muted dark:text-white/60">{flight.origin_city.split(' ')[0].toUpperCase()}</p>
               </div>
               <div className="flex-1 flex items-center justify-center px-6 relative">
                 <div className="w-full h-[2px] bg-vintage-muted/30 dark:bg-white/20"></div>
                 <Plane className="absolute text-brand bg-vintage-cream dark:bg-background-dark px-2 w-10 h-10 rotate-90" />
               </div>
               <div className="text-center">
-                <h3 className="text-5xl font-black tracking-tighter">LHR</h3>
-                <p className="text-xs font-bold text-vintage-muted dark:text-white/60">LONDON</p>
+                <h3 className="text-5xl font-black tracking-tighter">{flight.destination_city.substring(0, 3).toUpperCase()}</h3>
+                <p className="text-xs font-bold text-vintage-muted dark:text-white/60">{flight.destination_city.split(' ')[0].toUpperCase()}</p>
               </div>
             </div>
 
@@ -60,14 +98,14 @@ const BoardingPass = () => {
                   <User className="w-3 h-3 text-brand" />
                   <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Passenger Name</p>
                 </div>
-                <p className="text-lg font-bold">John Doe</p>
+                <p className="text-lg font-bold truncate max-w-[150px]" title={userData?.name}>{userData?.name || 'Traveler'}</p>
               </div>
               <div>
                 <div className="flex items-center gap-1 mb-1">
                   <Hash className="w-3 h-3 text-brand" />
                   <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Flight No.</p>
                 </div>
-                <p className="text-lg font-bold">RS-1962</p>
+                <p className="text-lg font-bold">{flight.flight_number}</p>
               </div>
               <div>
                 <div className="flex items-center gap-1 mb-1">
@@ -81,14 +119,14 @@ const BoardingPass = () => {
                   <Calendar className="w-3 h-3 text-brand" />
                   <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Date</p>
                 </div>
-                <p className="text-lg font-bold">OCT 14, 1962</p>
+                <p className="text-lg font-bold">{formatDate(flight.departure_time)}</p>
               </div>
               <div>
                 <div className="flex items-center gap-1 mb-1">
                   <Clock className="w-3 h-3 text-brand" />
                   <p className="text-[10px] font-bold text-vintage-muted dark:text-white/50 tracking-wider uppercase">Boarding Time</p>
                 </div>
-                <p className="text-lg font-bold">08:15 AM</p>
+                <p className="text-lg font-bold">{formatTime(flight.departure_time)}</p>
               </div>
               <div>
                 <div className="flex items-center gap-1 mb-1">
@@ -118,19 +156,19 @@ const BoardingPass = () => {
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span className="text-[10px] font-bold text-vintage-muted dark:text-white/50">PASSENGER</span>
-                  <span className="text-xs font-bold">STERLING / A.</span>
+                  <span className="text-xs font-bold truncate max-w-[100px]" title={userData?.name}>{userData?.name ? userData.name.toUpperCase() : 'TRAVELER'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[10px] font-bold text-vintage-muted dark:text-white/50">FLIGHT</span>
-                  <span className="text-xs font-bold">RS-1962</span>
+                  <span className="text-xs font-bold">{flight.flight_number}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[10px] font-bold text-vintage-muted dark:text-white/50">FROM</span>
-                  <span className="text-xs font-bold uppercase">JFK</span>
+                  <span className="text-xs font-bold uppercase">{flight.origin_city.substring(0, 3).toUpperCase()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[10px] font-bold text-vintage-muted dark:text-white/50">TO</span>
-                  <span className="text-xs font-bold uppercase">LHR</span>
+                  <span className="text-xs font-bold uppercase">{flight.destination_city.substring(0, 3).toUpperCase()}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-[10px] font-bold text-vintage-muted dark:text-white/50">SEAT</span>
@@ -186,11 +224,11 @@ const BoardingPass = () => {
 
         {/* Destination Map Preview */}
         <div className="mt-8 rounded-custom overflow-hidden h-64 relative group">
-          <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="London LHR destination" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop" />
+          <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt={`${flight.destination_city} destination`} src={getDestinationImage(flight.destination_city)} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
             <div>
               <p className="text-brand font-bold text-sm tracking-widest uppercase">Your Destination</p>
-              <h3 className="text-white text-3xl font-black">LONDON (LHR)</h3>
+              <h3 className="text-white text-3xl font-black">{flight.destination_city.toUpperCase()}</h3>
               <p className="text-white/80 text-sm mt-1">Expected temperature: 18°C / 64°F</p>
             </div>
           </div>

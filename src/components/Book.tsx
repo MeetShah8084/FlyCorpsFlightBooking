@@ -59,11 +59,10 @@ const Book = () => {
           <button
             key={day}
             onClick={() => setSelectedDay(day)}
-            className={`${
-              selectedDay === day
-                ? 'bg-brand text-white border-transparent'
-                : 'bg-brand/10 dark:bg-brand/5 text-vintage-navy/60 dark:text-white/60 hover:bg-brand/20 border-transparent'
-            } px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap transition-colors`}
+            className={`${selectedDay === day
+              ? 'bg-brand text-white border-transparent'
+              : 'bg-brand/10 dark:bg-brand/5 text-vintage-navy/60 dark:text-white/60 hover:bg-brand/20 border-transparent'
+              } px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap transition-colors`}
           >
             {day}
           </button>

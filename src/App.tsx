@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { supabase } from './lib/supabase'
 import Header from './components/Header'
 import HeroSearch from './components/HeroSearch'
 import FlightList from './components/FlightList'
@@ -15,12 +16,37 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userData, setUserData] = useState<{
+    id?: string;
     name: string;
     email: string;
     picture: string;
   } | null>(null)
+  const [selectedBooking, setSelectedBooking] = useState<any>(null)
 
   const [showSpecialOffers, setShowSpecialOffers] = useState(true)
+
+  const handleBookFlight = async (flightId: string, price: number) => {
+    if (!isLoggedIn || !userData?.id) {
+      alert("Please log in to book a flight.");
+      setCurrentPage('login');
+      return;
+    }
+
+    const { error } = await supabase.from('bookings').insert({
+      user_id: userData.id,
+      flight_id: flightId,
+      total_paid: price,
+      status: 'confirmed'
+    });
+
+    if (error) {
+      console.error("Error booking flight:", error);
+      alert("Failed to book flight. Please try again.");
+    } else {
+      alert("Flight booked successfully! View it in My Trips.");
+      setCurrentPage('mytrips');
+    }
+  };
 
   useEffect(() => {
     if (isDarkMode) {
@@ -53,7 +79,7 @@ function App() {
           <HeroSearch onSearch={() => setShowSpecialOffers(false)} />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 transition-all duration-500 ease-in-out">
             <div className={`transition-all duration-500 ${showSpecialOffers ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
-              <FlightList />
+              <FlightList onBookFlight={handleBookFlight} />
             </div>
             <div className={`transition-all duration-500 overflow-hidden ${showSpecialOffers ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none hidden lg:block translate-x-10 w-0 h-0 overflow-hidden'}`}>
               <SpecialOffers />
@@ -66,11 +92,16 @@ function App() {
         </main>
       ) : currentPage === 'mytrips' ? (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto flex">
-          <MyTrips setCurrentPage={setCurrentPage} />
+          <MyTrips 
+            setCurrentPage={setCurrentPage} 
+            userData={userData} 
+            isLoggedIn={isLoggedIn} 
+            setSelectedBooking={setSelectedBooking}
+          />
         </main>
       ) : currentPage === 'boarding-pass' ? (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto flex">
-          <BoardingPass />
+          <BoardingPass booking={selectedBooking} userData={userData} setCurrentPage={setCurrentPage} />
         </main>
       ) : currentPage === 'profile' ? (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto">

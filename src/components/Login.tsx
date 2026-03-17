@@ -1,24 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { supabase } from '../lib/supabase';
 
 interface LoginProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<'home' | 'profile' | 'login' | 'book' | 'mytrips' | 'boarding-pass'>>;
-  setUserData: React.Dispatch<React.SetStateAction<{ name: string; email: string; picture: string; } | null>>;
+  setUserData: React.Dispatch<React.SetStateAction<{ id?: string; name: string; email: string; picture: string; } | null>>;
 }
 
 const Login: React.FC<LoginProps> = ({ setIsLoggedIn, setCurrentPage, setUserData }) => {
-  const handleLogin = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  const getOrCreateProfile = async (email: string, name: string, picture: string) => {
+    // Check if profile exists
+    let { data: profile } = await supabase.from('profiles').select('*').eq('email', email).single();
+    
+    if (!profile) {
+      // Create new profile with a generated UUID since we dropped the auth.users FK
+      const newId = crypto.randomUUID();
+      const { data: newProfile, error } = await supabase.from('profiles').insert({
+        id: newId,
+        email,
+        full_name: name,
+        avatar_url: picture,
+      }).select().single();
+      
+      if (error) {
+        console.error("Error creating profile:", error);
+        return null;
+      }
+      profile = newProfile;
+    }
+    
+    return profile;
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Fallback for manual login
-    setUserData({
-      name: 'John Doe',
-      email: 'john@example.com',
-      picture: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC7IxdewUp9ygb2F7kfv1Y7hnXcO4PZisHaqd3rkfhoXrm4llCDVeKJL2PVICeXfMoWL4l2YyOv-Nl3NrEDXGJo1H812aJw6qhHzcFWKXXQWSbUwlhT2VmnwiTMCq3wOsBXBVSYIN0-8lIRzhsvfVL9jf1ZCg8rScjWCHLvUCWXZXr-fcI_fCpg8oesC_vzDcKy5ft6nO3EXDtUgrirVWHEIntqylgIk8EZJvhmCD-7IPCbGG52QTqIaE6E6D2XijSP-TgV_gfnA8U'
-    });
-    setIsLoggedIn(true);
-    setCurrentPage('home');
+    setLoading(true);
+    const email = (e.target as any).email.value;
+    const name = email.split('@')[0];
+    const picture = 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + email;
+    
+    const profile = await getOrCreateProfile(email, name, picture);
+    
+    if (profile) {
+      setUserData({
+        id: profile.id,
+        name: profile.full_name || name,
+        email: profile.email,
+        picture: profile.avatar_url || picture
+      });
+      setIsLoggedIn(true);
+      setCurrentPage('home');
+    }
+    setLoading(false);
   };
 
   return (
@@ -32,15 +69,20 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn, setCurrentPage, setUserDat
         {/* OAuth Section */}
         <div className="mb-6 flex justify-center">
           <GoogleLogin
-            onSuccess={(credentialResponse) => {
+            onSuccess={async (credentialResponse) => {
               const decoded: any = jwtDecode(credentialResponse.credential!);
-              setUserData({
-                name: decoded.name,
-                email: decoded.email,
-                picture: decoded.picture
-              });
-              setIsLoggedIn(true);
-              setCurrentPage('home');
+              const profile = await getOrCreateProfile(decoded.email, decoded.name, decoded.picture);
+              
+              if (profile) {
+                setUserData({
+                  id: profile.id,
+                  name: profile.full_name || decoded.name,
+                  email: profile.email,
+                  picture: profile.avatar_url || decoded.picture
+                });
+                setIsLoggedIn(true);
+                setCurrentPage('home');
+              }
             }}
             onError={() => {
               console.log('Login Failed');
@@ -89,9 +131,10 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn, setCurrentPage, setUserDat
           </div>
           <button 
             type="submit"
-            className="w-full bg-brand text-white font-bold py-4 px-4 rounded-custom transition-all hover:opacity-90 uppercase tracking-widest text-sm shadow-md mt-6"
+            disabled={loading}
+            className="w-full bg-brand text-white font-bold py-4 px-4 rounded-custom transition-all hover:opacity-90 uppercase tracking-widest text-sm shadow-md mt-6 disabled:opacity-50"
           >
-            Sign in with Email
+            {loading ? 'Signing In...' : 'Sign in with Email'}
           </button>
         </form>
 
