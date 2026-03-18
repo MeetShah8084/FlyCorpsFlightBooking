@@ -22,28 +22,43 @@ function App() {
     picture: string;
   } | null>(null)
   const [selectedBooking, setSelectedBooking] = useState<any>(null)
+  const [selectedFlightForBooking, setSelectedFlightForBooking] = useState<any>(null)
+  const [searchFilters, setSearchFilters] = useState<{ from: string, to: string, date: string } | null>(null)
 
   const [showSpecialOffers, setShowSpecialOffers] = useState(true)
 
-  const handleBookFlight = async (flightId: string, price: number) => {
+  const handleSelectFlight = (flight: any) => {
     if (!isLoggedIn || !userData?.id) {
       alert("Please log in to book a flight.");
       setCurrentPage('login');
       return;
     }
+    setSelectedFlightForBooking(flight);
+    setCurrentPage('book');
+  };
+
+  const handleConfirmBooking = async (passengers: number, seatType: string) => {
+    if (!selectedFlightForBooking || !userData?.id) return;
+    
+    // Calculate total including taxes/fees based on passenger count and seat type
+    const basePrice = selectedFlightForBooking.price;
+    const standardSeatPrice = basePrice * passengers;
+    const serviceCharge = seatType === 'First Class' ? 150 * passengers : 45 * passengers;
+    const taxesAndFees = 25 * passengers;
+    const totalPaid = standardSeatPrice + serviceCharge + taxesAndFees;
 
     const { error } = await supabase.from('bookings').insert({
       user_id: userData.id,
-      flight_id: flightId,
-      total_paid: price,
+      flight_id: selectedFlightForBooking.id,
+      total_paid: totalPaid,
       status: 'confirmed'
     });
 
     if (error) {
       console.error("Error booking flight:", error);
-      alert("Failed to book flight. Please try again.");
+      alert("Failed to confirm booking. Please try again.");
     } else {
-      alert("Flight booked successfully! View it in My Trips.");
+      alert("Booking confirmed! View it in My Trips.");
       setCurrentPage('mytrips');
     }
   };
@@ -76,10 +91,10 @@ function App() {
 
       {currentPage === 'home' ? (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto">
-          <HeroSearch onSearch={() => setShowSpecialOffers(false)} />
+          <HeroSearch onSearch={(filters) => { setSearchFilters(filters); setShowSpecialOffers(false); }} />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 transition-all duration-500 ease-in-out">
             <div className={`transition-all duration-500 ${showSpecialOffers ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
-              <FlightList onBookFlight={handleBookFlight} />
+              <FlightList onSelectFlight={handleSelectFlight} searchFilters={searchFilters} />
             </div>
             <div className={`transition-all duration-500 overflow-hidden ${showSpecialOffers ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none hidden lg:block translate-x-10 w-0 h-0 overflow-hidden'}`}>
               <SpecialOffers />
@@ -87,8 +102,13 @@ function App() {
           </div>
         </main>
       ) : currentPage === 'book' ? (
-        <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto flex">
-          <Book />
+        <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto flex w-full">
+          <Book 
+            flight={selectedFlightForBooking} 
+            userData={userData} 
+            onConfirm={handleConfirmBooking} 
+            onCancel={() => setCurrentPage('home')}
+          />
         </main>
       ) : currentPage === 'mytrips' ? (
         <main className="pt-28 pb-20 px-4 max-w-7xl mx-auto flex">

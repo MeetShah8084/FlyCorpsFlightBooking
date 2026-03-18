@@ -1,11 +1,16 @@
 import { useState } from 'react';
 
 interface HeroSearchProps {
-  onSearch: () => void;
+  onSearch: (filters: { from: string, to: string, date: string }) => void;
 }
 
 const HeroSearch: React.FC<HeroSearchProps> = ({ onSearch }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [date, setDate] = useState('');
+
+  const minDate = new Date().toISOString().split('T')[0];
 
   return (
     <section className="mb-12">
@@ -15,19 +20,37 @@ const HeroSearch: React.FC<HeroSearchProps> = ({ onSearch }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
           <div className="md:col-span-1">
             <label className="block text-xs font-bold uppercase mb-2 text-vintage-navy/60 dark:text-white/80">From</label>
-            <input className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" placeholder="New York (JFK)" type="text" />
+            <input 
+              className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" 
+              placeholder="New York (JFK)" 
+              type="text"
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+            />
           </div>
           <div className="md:col-span-1">
             <label className="block text-xs font-bold uppercase mb-2 text-vintage-navy/60 dark:text-white/80">To</label>
-            <input className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" placeholder="London (LHR)" type="text" />
+            <input 
+              className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" 
+              placeholder="London (LHR)" 
+              type="text" 
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            />
           </div>
           <div className="md:col-span-1">
             <label className="block text-xs font-bold uppercase mb-2 text-vintage-navy/60 dark:text-white/80">Departure Date</label>
-            <input className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" type="date" />
+            <input 
+              className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-brand/20 rounded-custom focus:ring-brand focus:border-brand p-3" 
+              type="date"
+              min={minDate}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
           </div>
           <div className="flex gap-2">
             <button 
-              onClick={onSearch}
+              onClick={() => onSearch({ from, to, date })}
               className="flex-grow bg-brand text-white font-bold py-3 px-6 rounded-custom hover:opacity-90 transition-all uppercase"
             >
               Find Flights

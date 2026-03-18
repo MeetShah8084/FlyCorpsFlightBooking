@@ -1,193 +1,169 @@
-import { Search, ChevronDown } from 'lucide-react';
+import { Plane, ChevronDown, MapPin, ArrowRight, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 
-const Book = () => {
-  const [selectedDay, setSelectedDay] = useState('Monday');
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+interface BookProps {
+  flight: any;
+  userData: { id?: string; name: string; email: string; picture: string } | null;
+  onConfirm: (passengers: number, seatType: string) => Promise<void>;
+  onCancel: () => void;
+}
+
+const Book = ({ flight, userData, onConfirm, onCancel }: BookProps) => {
+  const [seatType, setSeatType] = useState('First Class');
+  const [passengers, setPassengers] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  if (!flight) {
+    return (
+      <div className="w-full flex-grow flex items-center justify-center flex-col gap-4">
+        <h2 className="text-2xl font-black uppercase text-vintage-navy dark:text-vintage-cream">No Flight Selected</h2>
+        <button onClick={onCancel} className="bg-brand text-white px-6 py-3 rounded-custom font-bold uppercase tracking-wider hover:opacity-90">
+          Back to Flights
+        </button>
+      </div>
+    );
+  }
+
+  // Calculate pricing
+  const basePrice = flight.price;
+  const standardSeatPrice = basePrice * passengers;
+  const serviceCharge = seatType === 'First Class' ? 150 * passengers : 45 * passengers;
+  const taxesAndFees = 25 * passengers;
+  const totalAmount = standardSeatPrice + serviceCharge + taxesAndFees;
+
+  const handleConfirm = async () => {
+    setIsSubmitting(true);
+    await onConfirm(passengers, seatType);
+    setIsSubmitting(false);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 flex-grow">
-      {/* Hero Section */}
-      <div className="mb-8 border-b-4 border-brand pb-6">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-4">
-          <div>
-            <span className="text-brand font-bold uppercase tracking-[0.3em] text-sm">Official Worldwide Service</span>
-            <h1 className="text-5xl md:text-7xl font-black uppercase text-vintage-navy dark:text-vintage-cream leading-none mt-2">Flight Timetable</h1>
-            <p className="text-vintage-muted dark:text-white/60 mt-4 max-w-xl text-lg italic">The Golden Age of Jet Travel. Weekly updated routes and schedules for the modern traveler.</p>
-          </div>
-          {/* Removed Effective Date block */}
-        </div>
-      </div>
-
-      {/* Filters & Search */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-8">
-        <div className="lg:col-span-2">
-          <label className="block text-xs font-black uppercase tracking-widest mb-2 text-vintage-muted dark:text-white/80">Quick Search</label>
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-brand w-6 h-6" />
-            <input className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-2 border-brand/20 rounded-custom py-4 pl-12 pr-4 focus:border-brand focus:ring-brand transition-all text-lg font-medium" placeholder="Search by destination or flight number..." type="text" />
-          </div>
-        </div>
+    <div className="flex-1 max-w-[960px] mx-auto w-full px-4 lg:px-6 py-12">
+      <div className="mb-10 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-4">
+        <button onClick={onCancel} className="mt-2 text-brand hover:text-brand/80 transition-colors hidden md:block" title="Back">
+          <ArrowLeft className="w-8 h-8" />
+        </button>
         <div>
-          <label className="block text-xs font-black uppercase tracking-widest mb-2 text-vintage-muted dark:text-white/80">Route Region</label>
-          <div className="relative">
-            <select className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-2 border-brand/20 rounded-custom py-4 px-4 appearance-none focus:border-brand focus:ring-0 text-lg font-medium">
-              <option>International</option>
-              <option>Domestic (USA)</option>
-              <option>Transatlantic</option>
-              <option>Pacific Routes</option>
-            </select>
-            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-vintage-muted dark:text-white/60 w-5 h-5" />
-          </div>
-        </div>
-        <div>
-          <label className="block text-xs font-black uppercase tracking-widest mb-2 text-vintage-muted dark:text-white/80">Aircraft Type</label>
-          <div className="relative">
-            <select className="w-full bg-white dark:bg-background-dark/50 dark:text-white border-2 border-brand/20 rounded-custom py-4 px-4 appearance-none focus:border-brand focus:ring-0 text-lg font-medium">
-              <option>All Fleet</option>
-              <option>Boeing 707 Jet</option>
-              <option>Douglas DC-8</option>
-              <option>Caravelle VI-R</option>
-            </select>
-            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-vintage-muted dark:text-white/60 w-5 h-5" />
-          </div>
+          <h2 className="text-4xl md:text-5xl font-black text-vintage-navy dark:text-vintage-cream leading-tight tracking-tight uppercase">
+            Complete Your Booking
+          </h2>
+          <p className="text-lg text-brand/80 font-bold mt-2 uppercase tracking-widest">Step back into the golden age of travel.</p>
         </div>
       </div>
 
-      {/* Timetable Navigation */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2 flight-list-scroll">
-        {days.map(day => (
-          <button
-            key={day}
-            onClick={() => setSelectedDay(day)}
-            className={`${selectedDay === day
-              ? 'bg-brand text-white border-transparent'
-              : 'bg-brand/10 dark:bg-brand/5 text-vintage-navy/60 dark:text-white/60 hover:bg-brand/20 border-transparent'
-              } px-6 py-2 rounded-full font-bold uppercase text-sm tracking-tighter whitespace-nowrap transition-colors`}
-          >
-            {day}
-          </button>
-        ))}
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="lg:col-span-7 space-y-8">
+          <section className="bg-white dark:bg-background-dark/50 p-8 rounded-custom border-2 border-brand/10 shadow-sm retro-card">
+            <div className="space-y-6">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-bold uppercase tracking-wider text-vintage-muted dark:text-white/60">Selected Seat Type</label>
+                <div className="relative">
+                  <select 
+                    value={seatType}
+                    onChange={(e) => setSeatType(e.target.value)}
+                    className="appearance-none w-full bg-white dark:bg-background-dark/80 border-2 border-brand/20 rounded-custom px-4 py-4 text-vintage-navy dark:text-white focus:ring-2 focus:ring-brand focus:border-transparent outline-none cursor-pointer font-medium text-lg"
+                  >
+                    <option value="First Class">Window (First Class)</option>
+                    <option value="First Class">Aisle (First Class)</option>
+                    <option value="Business">Window (Business)</option>
+                    <option value="Economy Plus">Aisle (Economy Plus)</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-brand w-5 h-5" />
+                </div>
+              </div>
 
-      {/* Main Timetable Table */}
-      <div className="bg-white dark:bg-background-dark border-2 border-vintage-navy dark:border-brand/40 rounded-custom overflow-hidden shadow-lg retro-card">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[800px]">
-            <thead>
-              <tr className="bg-vintage-navy dark:bg-brand/20 text-white uppercase text-xs tracking-[0.2em]">
-                <th className="px-6 py-4 font-black">Flight No.</th>
-                <th className="px-6 py-4 font-black">From (Origin)</th>
-                <th className="px-6 py-4 font-black">To (Destination)</th>
-                <th className="px-6 py-4 font-black">Dep.</th>
-                <th className="px-6 py-4 font-black">Arr.</th>
-                <th className="px-6 py-4 font-black">Equipment</th>
-                <th className="px-6 py-4 font-black">Stops</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-brand/10">
-              <tr className="hover:bg-brand/5 transition-colors dark:text-white">
-                <td className="px-6 py-5 font-black text-brand">RS 101</td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">NEW YORK</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">JFK International</div>
-                </td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">LONDON</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">Heathrow Airport</div>
-                </td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">08:00</td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">20:15</td>
-                <td className="px-6 py-5 text-sm italic">Boeing 707-320</td>
-                <td className="px-6 py-5">
-                  <span className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Non-Stop</span>
-                </td>
-              </tr>
-              <tr className="hover:bg-brand/5 transition-colors bg-brand/5 dark:bg-brand/10 dark:text-white">
-                <td className="px-6 py-5 font-black text-brand">RS 245</td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">CHICAGO</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">O'Hare Terminal 1</div>
-                </td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">PARIS</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">Orly Airport</div>
-                </td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">11:30</td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">01:45 <span className="text-[10px] align-top text-brand font-black">+1</span></td>
-                <td className="px-6 py-5 text-sm italic">Boeing 707 Jet</td>
-                <td className="px-6 py-5">
-                  <span className="bg-brand/10 text-vintage-navy/70 dark:text-white/80 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter border border-brand/20">1 Stop (Shannon)</span>
-                </td>
-              </tr>
-              <tr className="hover:bg-brand/5 transition-colors dark:text-white">
-                <td className="px-6 py-5 font-black text-brand">RS 082</td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">LOS ANGELES</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">LAX International</div>
-                </td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">TOKYO</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">Haneda Int'l</div>
-                </td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">22:00</td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">06:30 <span className="text-[10px] align-top text-brand font-black">+2</span></td>
-                <td className="px-6 py-5 text-sm italic">Boeing 707-320</td>
-                <td className="px-6 py-5">
-                  <span className="bg-brand/10 text-vintage-navy/70 dark:text-white/80 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter border border-brand/20">1 Stop (Honolulu)</span>
-                </td>
-              </tr>
-              <tr className="hover:bg-brand/5 transition-colors bg-brand/5 dark:bg-brand/10 dark:text-white">
-                <td className="px-6 py-5 font-black text-brand">RS 412</td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">ROME</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">Fiumicino</div>
-                </td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">ATHENS</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">Ellinikon</div>
-                </td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">14:15</td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">16:45</td>
-                <td className="px-6 py-5 text-sm italic">Caravelle VI-R</td>
-                <td className="px-6 py-5">
-                  <span className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Non-Stop</span>
-                </td>
-              </tr>
-              <tr className="hover:bg-brand/5 transition-colors dark:text-white">
-                <td className="px-6 py-5 font-black text-brand">RS 550</td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">NEW YORK</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">JFK International</div>
-                </td>
-                <td className="px-6 py-5">
-                  <div className="font-bold">MIAMI</div>
-                  <div className="text-xs text-vintage-muted dark:text-white/50">Miami Int'l</div>
-                </td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">09:15</td>
-                <td className="px-6 py-5 font-mono text-lg font-bold">12:00</td>
-                <td className="px-6 py-5 text-sm italic">Douglas DC-8</td>
-                <td className="px-6 py-5">
-                  <span className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Non-Stop</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="bg-vintage-navy dark:bg-brand/20 p-4 flex justify-between items-center text-white/60 text-[10px] uppercase font-bold tracking-widest">
-          <div>© 1964 FLYX CORPORATIONS</div>
-          <div className="flex gap-4">
-            <span>* +1 Denotes Next Day Arrival</span>
-            <span>* All Times Local</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-bold uppercase tracking-wider text-vintage-muted dark:text-white/60">Full Name</label>
+                  <input 
+                    className="w-full bg-white dark:bg-background-dark/80 border-2 border-brand/20 rounded-custom px-4 py-4 text-vintage-navy dark:text-white focus:ring-2 focus:ring-brand focus:border-transparent outline-none font-medium text-lg" 
+                    placeholder="e.g. Howard Hughes" 
+                    type="text" 
+                    defaultValue={userData?.name || ''}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-bold uppercase tracking-wider text-vintage-muted dark:text-white/60">Passengers</label>
+                  <input 
+                    className="w-full bg-white dark:bg-background-dark/80 border-2 border-brand/20 rounded-custom px-4 py-4 text-vintage-navy dark:text-white focus:ring-2 focus:ring-brand focus:border-transparent outline-none font-medium text-lg" 
+                    placeholder="1" 
+                    type="number" 
+                    min="1"
+                    max="10"
+                    value={passengers}
+                    onChange={(e) => setPassengers(Math.max(1, parseInt(e.target.value) || 1))}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div className="relative h-64 w-full rounded-custom overflow-hidden border-2 border-brand/10">
+            <div className="absolute inset-0 bg-brand/5"></div>
+            <img 
+              className="w-full h-full object-cover mix-blend-multiply opacity-60 dark:opacity-40" 
+              alt="Vintage flight map" 
+              src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=2000"
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-white/90 dark:bg-background-dark/90 px-6 py-3 rounded-full border-2 border-brand/20 shadow-xl flex items-center gap-3">
+                <MapPin className="text-brand w-5 h-5" />
+                <span className="font-bold text-vintage-navy dark:text-white uppercase tracking-wider">
+                  {flight.origin_city.substring(0,3)} → {flight.destination_city.substring(0,3)}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Call to Action / Footer Card */}
-      <div className="mt-12 flex justify-center">
-        <div className="bg-brand/10 border-2 border-brand/20 p-8 rounded-custom relative overflow-hidden group max-w-2xl w-full text-center">
-          <h3 className="text-2xl font-black uppercase text-brand mb-2">Book Your Ticket</h3>
-          <p className="text-vintage-navy/70 dark:text-white/70 mb-6 font-medium">Experience the Royal Ambassador Service. Multi-course meals and silver service on every transatlantic crossing.</p>
-          <button className="bg-brand text-white px-8 py-3 rounded-custom font-bold uppercase tracking-wider hover:opacity-90 shadow-md">Reserve Now</button>
+        <div className="lg:col-span-5">
+          <div className="sticky top-28 space-y-6">
+            <div className="bg-brand text-white p-8 rounded-custom shadow-lg relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+              
+              <h3 className="text-lg font-bold uppercase tracking-widest opacity-80 mb-6 flex items-center gap-2">
+                <Plane className="w-5 h-5" />
+                Fare Summary
+              </h3>
+              
+              <div className="space-y-4 mb-8 text-lg">
+                <div className="flex justify-between border-b-2 border-white/20 pb-2">
+                  <span className="font-medium">Standard Seat (x{passengers})</span>
+                  <span>${standardSeatPrice.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between border-b-2 border-white/20 pb-2">
+                  <span className="font-medium">{seatType} Service</span>
+                  <span>${serviceCharge.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between border-b-2 border-white/20 pb-2">
+                  <span className="font-medium">Taxes & Fees</span>
+                  <span>${taxesAndFees.toFixed(2)}</span>
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-1 mb-8">
+                <span className="text-sm font-bold uppercase opacity-80 tracking-wider">Total Amount to Pay</span>
+                <span className="text-5xl font-black leading-none">${totalAmount.toFixed(2)}</span>
+              </div>
+              
+              <button 
+                onClick={handleConfirm}
+                disabled={isSubmitting}
+                className="w-full bg-white text-brand hover:bg-vintage-paper transition-all duration-300 font-black py-5 rounded-custom text-lg uppercase tracking-widest shadow-md active:scale-95 flex items-center justify-center gap-2 disabled:opacity-70"
+              >
+                {isSubmitting ? 'Processing...' : 'Confirm and Pay'}
+                {!isSubmitting && <ArrowRight className="w-6 h-6" />}
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4 p-4 border-2 border-brand/10 rounded-custom bg-brand/5">
+              <ShieldCheck className="text-brand w-8 h-8 flex-shrink-0" />
+              <div className="text-sm">
+                <p className="font-bold text-vintage-navy dark:text-white uppercase tracking-wider">Secure Vintage Booking</p>
+                <p className="text-vintage-muted dark:text-white/60 font-medium">Your details are protected by mid-century reliability and modern encryption.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
